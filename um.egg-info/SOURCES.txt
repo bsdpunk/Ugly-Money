@@ -1,8 +1,10 @@
 setup.py
 um/__init__.py
+um/quan.py
 um/um.py
 um.egg-info/PKG-INFO
 um.egg-info/SOURCES.txt
 um.egg-info/dependency_links.txt
 um.egg-info/entry_points.txt
+um.egg-info/requires.txt
 um.egg-info/top_level.txt

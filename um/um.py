@@ -20,7 +20,7 @@ import unicodedata
 import rlcompleter
 import random, shlex, atexit
 import platform, time, calendar
-
+import quan
 
 arg_count = 0
 no_auth = 0
@@ -32,25 +32,19 @@ prompt_r = 0
 
         
 #For tab completion
-COMMANDS = sorted(['News'])
+COMMANDS = sorted(['News','quan-stock-price'])
 
 #For X number of arguements
-ONE = ['list-images','list-domains', 'linode-list-ip', 'linode-list', 'avail-datacenters', 'avail-distributions', 'avail-plans', 'avail-stackscripts', 'nodebal-list', 'esx-list-datastores',  'sat-system-group-audit', 'esx-get-datastores','esx-get-resource-pools','esx-get-registered-vms','esx-get-hosts','sat-list-all-groups','sat-system-version','sat-list-users','sat-get-api-call','sat-get-version']
-TWO = ['esx-destroy-vm','esx-create-from-ova','linode-list-ip', 'nodebal-node-list', 'nodebal-config-list', 'nodebal-create', 'linode-shutdown','domain-resource-list','esx-change-cd','esx-vm-device-info', 'esx-check-tools','esx-get-vm-uuid','broad-ad-search','esx-get-vm-name','sat-list-systems','jump','which','domain-resource-list']
+ONE = ['quan-stock-price']
+TWO = ['quan-stock-price']
 THREE = ['esx-create-from-ovf','linode-create','domain-resource-list', 'esx-change-cd']
 FOUR = ['domain-resource-create']
 FIVE = ['domain-resource-create']
 SIX = ['linode-disk-dist']
 #For what class
-RHSAT= ['sat-system-group-audit', 'sat-list-systems','sat-list-all-groups','sat-system-version','sat-list-users','sat-get-api-call','sat-get-version']
 ADNET= ['search-for-name']
+QUAN= ['quan-stock-price']
 HELPER = ['hidden','?','help', 'quit', 'exit','clear','ls', 'version', 'qotd']
-UCOMMANDS = ['search-for-id','which','jump']
-VMUTILS = ['esx-destroy-vm','esx-create-from-ova','esx-create-from-ovf','esx-vm-device-info', 'esx-perf-query', 'esx-list-datastores',  'esx-check-tools', 'esx-change-cd','esx-get-vm-uuid','esx-get-vm-name','esx-get-datastores','esx-get-resource-pools','esx-get-registered-vms','esx-get-hosts']
-DOMAIN= ['domain-resource-create','list-domains','domain-resource-list']
-SA = ['list-images','linode-list','linode-list-ip','linode-create', 'linode-shutdown','linode-disk-dist']
-LU = ['avail-datacenters', 'avail-distributions', 'avail-plans', 'avail-stackscripts']
-NB = ['nodebal-list', 'nodebal-node-list', 'nodebal-config-list', 'nodebal-create']
 
 for arg in sys.argv:
     arg_count += 1
@@ -87,10 +81,10 @@ else:
     #vcenter = raw_input("VCenter Server (ex: company.local):")
     #sat_url =raw_input("Satellite Server Url (ex: https://redhat/rhn/rpc/api):")
     #jump =raw_input("Jump Server(IP or DNS):")
-    #linode_api_key = getpass.getpass("Linode-API-Key:")
+    quandl_key = getpass.getpass("quandl-key:")
     #api_key = linode_api_key 
 
-    config= {"default":[{"username":username,"password":password}]}
+    config= {"default":[{"username":username,"password":password, "quandl-key":quandl_key}]}
     
     config_file_new = open(config_file, "w")
     config_f = str(config)
@@ -114,10 +108,11 @@ def get_sat_key(config):
     #sat_url = config["default"][0]["sat_url"]
     #vcenter = config["default"][0]["vcenter"]
     #lkey = config["default"][0]["Linode-API-Key"]
-    #api_key = config["default"][0]["Linode-API-Key"]
+    quandl_key = config["default"][0]["quandl-key"]
     key={}
     key['username']=username
     key['password']=password
+    key['quandl-key'] = quandl_key
     #key['platform']=ucommands.os_platform()
     #key['vcenter']=vcenter
     #key['si']=None
@@ -188,33 +183,8 @@ def cli():
         #Write try statement here for error catching
         command = cli.split(' ', 1)[0]
 
-        if command in ADNET:
-            l_class = 'adnet'
-        elif command in RHSAT:
-            if key['client'] == '':
-                print("You do not have a Redhat Satellite server in your ~/.trash.sh")
-                command = ""
-                cli = ""
-            else:
-                l_class = 'rhsat'
-        elif command in DOMAIN:
-            l_class = 'domain'
-        elif command in SA:
-            l_class = 'servers_action'
-        elif command in LU:
-            l_class = 'lin_utility'
-        elif command in NB:
-            l_class = 'node_balance'
-        elif command in UCOMMANDS:
-            l_class = 'ucommands'
-        elif command in VMUTILS:
-            if key['si'] == None:
-                si = esxi_connect(key)
-                    
-                atexit.register(Disconnect, si)
-            
-            key['si'] = si 
-            l_class = 'vmutils'
+        if command in QUAN:
+            l_class = 'quan'
         else:
             l_class = ''
         
@@ -272,7 +242,6 @@ def cli():
                     else:
                         l_class = eval(l_class)
                         result = getattr(l_class, command)(api_key, arguement)
-                    
                     print(result)
                     valid = 1
                 

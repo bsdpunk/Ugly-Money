@@ -6,7 +6,7 @@ install_requires = ['quandl']
 
 setup(
     name='um',
-    version='0.01',
+    version='0.11',
     packages=['um',],
     install_requires=install_requires,
     entry_points = { 'console_scripts': [
