@@ -1,5 +1,7 @@
 setup.py
 um/__init__.py
+um/manmenu.py
+um/menus.py
 um/quan.py
 um/um.py
 um.egg-info/PKG-INFO

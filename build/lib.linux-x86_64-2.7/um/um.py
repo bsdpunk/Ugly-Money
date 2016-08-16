@@ -1,5 +1,7 @@
 from __future__ import print_function
 from datetime import datetime
+import curses                                                                
+from curses import panel                                                     
 import time
 import ssl
 import re
@@ -21,6 +23,7 @@ import rlcompleter
 import random, shlex, atexit
 import platform, time, calendar
 import quan
+from menus import Menus
 
 arg_count = 0
 no_auth = 0
@@ -44,7 +47,7 @@ SIX = ['linode-disk-dist']
 #For what class
 ADNET= ['search-for-name']
 QUAN= ['quan-stock-price']
-HELPER = ['hidden','?','help', 'quit', 'exit','clear','ls', 'version', 'qotd']
+HELPER = ['hidden','?','help',"menus", 'quit', 'exit','clear','ls', 'version', 'qotd']
 
 for arg in sys.argv:
     arg_count += 1
@@ -273,8 +276,9 @@ def cli():
                     if cli == "hidden":
                         print(hidden_menu())
                         valid = 1
-                    if cli == "ls":
-                        print(ls_menu())
+                    if cli == "menus":
+                        #print(ls_menu())
+                        curses.wrapper(ManMenu)   
                         valid = 1
                     if cli == "qotd":
                         print(qotd_menu())
@@ -345,3 +349,25 @@ else:
     api_key = get_sat_key(config)
 
 
+
+
+class ManMenu(object):
+
+  def __init__(self, stdscreen):                                           
+    screen = stdscreen                                              
+    curses.curs_set(0)                                                   
+    submenu_items = [                                                    
+        ('turd', curses.beep),                                       
+        ('crap', curses.flash)                                      
+    ]                                                            
+    submenu = Menus(submenu_items, screen)                           
+
+    main_menu_items = [                                                  
+        ('beep', curses.beep),                                       
+        ('flash', curses.flash),                                     
+        ('submenu', submenu.display)                                 
+    ]                                                            
+    main_menu = Menus(main_menu_items, screen)                       
+    main_menu.display()                                                  
+
+ 
