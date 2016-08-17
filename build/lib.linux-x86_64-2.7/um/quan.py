@@ -8,6 +8,6 @@ def quan_stock_price(api, stock):
     data = quandl.get(stock)
     return data
 
-def quan_dl_db(api, download_type="partial", filename="1.zip")
+def quan_dl_db(api):
     quandl.bulkdownload("ZEA", download_type="partial", filename="./ZEA.zip")
     return 0
