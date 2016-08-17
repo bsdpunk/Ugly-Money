@@ -35,18 +35,18 @@ prompt_r = 0
 
         
 #For tab completion
-COMMANDS = sorted(['News','quan-stock-price'])
+COMMANDS = sorted(['quan-dl-db','News','quan-stock-price'])
 
 #For X number of arguements
 ONE = ['quan-stock-price']
 TWO = ['quan-stock-price']
-THREE = ['esx-create-from-ovf','linode-create','domain-resource-list', 'esx-change-cd']
+THREE = ['quan-dl-db','esx-change-cd']
 FOUR = ['domain-resource-create']
 FIVE = ['domain-resource-create']
 SIX = ['linode-disk-dist']
 #For what class
 ADNET= ['search-for-name']
-QUAN= ['quan-stock-price']
+QUAN= ['quan-dl-db','quan-stock-price']
 HELPER = ['hidden','?','help',"menus", 'quit', 'exit','clear','ls', 'version', 'qotd']
 
 for arg in sys.argv:
