@@ -280,6 +280,10 @@ def cli():
                         #print(ls_menu())
                         curses.wrapper(ManMenu)   
                         valid = 1
+                    if cli == "money":
+                        #print(ls_menu())
+                        curses.wrapper(MoneyMenu)   
+                        valid = 1
                     if cli == "qotd":
                         print(qotd_menu())
                         valid = 1
@@ -366,6 +370,25 @@ class ManMenu(object):
         ('beep', curses.beep),                                       
         ('flash', curses.flash),                                     
         ('submenu', submenu.display)                                 
+    ]                                                            
+    main_menu = Menus(main_menu_items, screen)                       
+    main_menu.display()                                                  
+
+class MoneyMenu(object):
+
+  def __init__(self, stdscreen):                                           
+    screen = stdscreen                                              
+    curses.curs_set(0)                                                   
+    submenu_items = [                                                    
+        ('fb', curses.beep),                                       
+        ('wiki', curses.flash)                                      
+    ]                                                            
+    submenu = Menus(submenu_items, screen)                           
+
+    main_menu_items = [                                                  
+        ('things', curses.beep),                                       
+        ('stocks', curses.flash),                                     
+        ('money', submenu.display)                                 
     ]                                                            
     main_menu = Menus(main_menu_items, screen)                       
     main_menu.display()                                                  
