@@ -23,6 +23,7 @@ import rlcompleter
 import random, shlex, atexit
 import platform, time, calendar
 import quan
+import bitcoin
 from menus import Menus
 
 arg_count = 0
@@ -35,11 +36,11 @@ prompt_r = 0
 
         
 #For tab completion
-COMMANDS = sorted(['quan-dl-db','News','quan-stock-price'])
+COMMANDS = sorted(["bitstamp-price",'quan-dl-db','News','quan-stock-price'])
 
 #For X number of arguements
-ONE = ['quan-stock-price']
-TWO = ['quan-stock-price']
+ONE = ["bitstamp-price",'quan-stock-price']
+TWO = ['bitstamp-price','quan-stock-price']
 THREE = ['quan-dl-db','esx-change-cd']
 FOUR = ['domain-resource-create']
 FIVE = ['domain-resource-create']
@@ -48,7 +49,7 @@ SIX = ['linode-disk-dist']
 ADNET= ['search-for-name']
 QUAN= ['quan-dl-db','quan-stock-price']
 HELPER = ['hidden','?','help',"menus", 'quit', 'exit','clear','ls', 'version', 'qotd']
-
+BC = ["bitstamp-price"]
 for arg in sys.argv:
     arg_count += 1
 
@@ -188,6 +189,8 @@ def cli():
 
         if command in QUAN:
             l_class = 'quan'
+        elif command in BC:
+            l_class = "bitcoin"
         else:
             l_class = ''
         
