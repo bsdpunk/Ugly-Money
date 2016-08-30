@@ -36,7 +36,7 @@ prompt_r = 0
 
         
 #For tab completion
-COMMANDS = sorted(["bitstamp-price",'quan-dl-db','News','quan-stock-price'])
+COMMANDS = sorted(["menus","bitstamp-price",'quan-dl-db','News','quan-stock-price'])
 
 #For X number of arguements
 ONE = ["bitstamp-price",'quan-stock-price']
