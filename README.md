@@ -9,3 +9,5 @@ sudo apt-get install python-xlib
 
 ## Tab Completion
 
+
+##Bitcoin stuff
