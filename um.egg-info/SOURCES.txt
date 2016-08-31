@@ -6,6 +6,7 @@ um/manmenu.py
 um/menus.py
 um/quan.py
 um/um.py
+um/world.py
 um.egg-info/PKG-INFO
 um.egg-info/SOURCES.txt
 um.egg-info/dependency_links.txt

@@ -23,7 +23,7 @@ import rlcompleter
 import random, shlex, atexit
 import platform, time, calendar
 import quan
-import wbpy
+import world
 import bitcoin
 from menus import Menus
 
@@ -37,10 +37,10 @@ prompt_r = 0
 
         
 #For tab completion
-COMMANDS = sorted(["menus","bitstamp-price",'quan-dl-db','News','quan-stock-price'])
+COMMANDS = sorted(["menus","bitstamp-price",'list-countries','quan-dl-db','News','quan-stock-price'])
 
 #For X number of arguements
-ONE = ["bitstamp-price",'quan-stock-price']
+ONE = ['list-countries',"bitstamp-price",'quan-stock-price']
 TWO = ['bitstamp-price','quan-stock-price']
 THREE = ['quan-dl-db','esx-change-cd']
 FOUR = ['domain-resource-create']
@@ -51,6 +51,7 @@ ADNET= ['search-for-name']
 QUAN= ['quan-dl-db','quan-stock-price']
 HELPER = ['hidden','?','help',"menus", 'quit', 'exit','clear','ls', 'version', 'qotd']
 BC = ["bitstamp-price"]
+WORLD = ['list-countries']
 for arg in sys.argv:
     arg_count += 1
 
@@ -192,6 +193,8 @@ def cli():
             l_class = 'quan'
         elif command in BC:
             l_class = "bitcoin"
+        elif command in WORLD:
+            l_class = "world"
         else:
             l_class = ''
         
