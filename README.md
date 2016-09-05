@@ -11,3 +11,6 @@ sudo apt-get install python-xlib
 
 
 ##Bitcoin stuff
+
+
+##Need to Add Commodities stuff
