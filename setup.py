@@ -6,7 +6,7 @@ install_requires = ['quandl','wbpy']
 
 setup(
     name='um',
-    version='0.12',
+    version='0.13',
     packages=['um',],
     install_requires=install_requires,
     entry_points = { 'console_scripts': [

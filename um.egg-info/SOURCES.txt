@@ -1,6 +1,7 @@
 setup.py
 um/__init__.py
 um/bitcoin.py
+um/commod.py
 um/file.py
 um/manmenu.py
 um/menus.py
